@@ -1,98 +1,95 @@
 "use client";
-import { useEffect, useState } from "react";
+
+import { useEffect, useState, Suspense } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { useSearchParams } from "next/navigation"; // Import useSearchParams from next/navigation
+import { useSearchParams } from "next/navigation";
 import { arrayPorto } from "../../data/portofolio";
 
-export default function Portofolio() {
+export default function PortofolioPage() {
   const [isMounted, setIsMounted] = useState(false);
-  const [fade, setFade] = useState(false);  // State to control fade effect
-  const searchParams = useSearchParams();  // Use the hook to access searchParams
+  const [fade, setFade] = useState(false);
+  const [dropdownActive, setDropdownActive] = useState(false);
 
-  const category = searchParams?.get("category");  // Safely access category
+  const searchParams = useSearchParams();
+  const category = searchParams?.get("category");
 
-  // Filter portofolio based on category
   const filteredPorto = category
     ? arrayPorto.filter((porto) => porto.category.toLowerCase() === category.toLowerCase())
     : arrayPorto;
 
   useEffect(() => {
-    setIsMounted(true); // Start the fade-in animation after the component mounts
-    setFade(true); // Start fade effect when component mounts or category changes
-  }, [category]); // Dependency on category to trigger when the category changes
+    setIsMounted(true);
+    setFade(false); // trigger fade-out
+    const timeout = setTimeout(() => setFade(true), 50); // fade-in
+    return () => clearTimeout(timeout);
+  }, [category]);
 
-  // To reset fade-out and fade-in effect when category changes
-  const handleFadeTransition = () => {
-    setFade(false);  // Trigger fade-out
-    setTimeout(() => {
-      setFade(true);  // Trigger fade-in after delay
-    }, 300);  // Delay should match fade-out duration
-  };
-
-  const handleDropdownClick = () => {
-    const dropdown = document.querySelector(".dropdown");
-    if (dropdown) {
-      dropdown.classList.toggle("active");
-    } else {
-      console.warn("Dropdown element not found");
-    }
-  };
-
-  return (
+  const PortofolioContent = () => (
     <main
-      className={`container mx-auto ${isMounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"} transition-all duration-700 ease-in`}
+      className={`relative w-full h-screen overflow-hidden transition-all duration-700 ease-in
+        ${isMounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
     >
-        <video
-          className="absolute top-0 left-0 w-full h-full object-cover"
-          src="/video/DarkPolygon.mp4"
-          autoPlay
-          loop
-          muted
-          style={{ opacity: 1 }}
-        />
-      <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8 h-screen relative z-100">
+      {/* Background Video */}
+      <video
+        className="absolute top-0 left-0 w-full h-full object-cover"
+        src="/video/DarkPolygon.mp4"
+        autoPlay
+        loop
+        muted
+        style={{ opacity: 1 }}
+      />
+
+      {/* Content */}
+      <div className="relative z-[50] mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-24">
         <div className="flex items-center justify-between mb-8">
+          <h2 className="text-4xl font-bold tracking-tight text-soft-brown">My Portofolio</h2>
 
-        <h2 className="text-4xl font-bold tracking-tight text-soft-brown relative z-100">
-          My Portofolio
-        </h2>
-
-        <div className="dropdown" onClick={handleDropdownClick}>
+          {/* Dropdown */}
+          <div
+            className={`dropdown relative cursor-pointer ${dropdownActive ? "active" : ""}`}
+            onClick={() => setDropdownActive(!dropdownActive)}
+          >
             <span className="left-icon"></span>
             <span className="right-icon"></span>
             <span>Filter</span>
-            <div className="items">
-              <a href="/portofolio" className="dropdown-link" onClick={handleFadeTransition}>
+
+            <div
+              className={`items absolute right-0 mt-2 w-40 bg-white rounded-md shadow-lg overflow-hidden transition-all duration-300
+              ${dropdownActive ? "opacity-100 visible" : "opacity-0 invisible"}`}
+            >
+              <Link
+                href="/portofolio"
+                className="dropdown-link block px-4 py-2 text-gray-800 hover:bg-gray-100"
+              >
                 All
-                <span></span>
-              </a>
-              <a
+              </Link>
+              <Link
                 href="/portofolio?category=Website"
-                className="dropdown-link"
-                onClick={handleFadeTransition}
+                className="dropdown-link block px-4 py-2 text-gray-800 hover:bg-gray-100"
               >
                 Website
-                <span></span>
-              </a>
-              <a
+              </Link>
+              <Link
                 href="/portofolio?category=Mobile"
-                className="dropdown-link"
-                onClick={handleFadeTransition}
+                className="dropdown-link block px-4 py-2 text-gray-800 hover:bg-gray-100"
               >
                 Mobile
-                <span></span>
-              </a>
+              </Link>
             </div>
           </div>
-          </div>
+        </div>
 
-        {/* Portfolio Items with fade animation */}
-        <div className={`mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8 transition-all duration-500 ease-in-out ${fade ? "opacity-100" : "opacity-0"}`}>
+        {/* Portfolio Items */}
+        <div
+          className={`mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8
+          transition-all duration-500 ease-in-out ${fade ? "opacity-100" : "opacity-0"}`}
+        >
           {filteredPorto.map((porto, index) => (
             <div
-              key={index}
-              className={`group relative transition-all duration-700 ease-in ${fade ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
+              key={porto.id}
+              className={`group relative transition-all duration-700 ease-in
+                ${fade ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
               style={{ transitionDelay: `${index * 100}ms` }}
             >
               <Link href={`/portofolio/${porto.id}`}>
@@ -118,5 +115,12 @@ export default function Portofolio() {
         </div>
       </div>
     </main>
+  );
+
+  // Suspense wrapper
+  return (
+    <Suspense fallback={<div className="flex items-center justify-center h-screen">Loading...</div>}>
+      <PortofolioContent />
+    </Suspense>
   );
 }
