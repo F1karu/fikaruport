@@ -1,8 +1,8 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { useState, useEffect } from "react";
 import { arrayPorto } from "../../../data/portofolio";
 
 type Params = {
@@ -19,15 +19,15 @@ type Porto = {
 };
 
 export default function ProjectDetail({ params }: { params: Params }) {
+  const { id } = params;
   const [porto, setPorto] = useState<Porto | null>(null);
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    const id = parseInt(params.id);
-    const foundPorto = arrayPorto.find((p) => p.id === id) || null;
+    const foundPorto = arrayPorto.find((p) => p.id === parseInt(id)) || null;
     setPorto(foundPorto);
     setIsVisible(true);
-  }, [params.id]);
+  }, [id]);
 
   if (!porto) return <div className="text-center mt-20 text-white">Project not found</div>;
 
@@ -46,15 +46,7 @@ export default function ProjectDetail({ params }: { params: Params }) {
         <p className="mb-4 text-center">{porto.description}</p>
 
         <div className="flex flex-col items-center gap-6">
-          <Image
-            alt={porto.name}
-            src={porto.image}
-            width={500}
-            height={500}
-            className="rounded-lg"
-            unoptimized
-          />
-
+          <Image alt={porto.name} src={porto.image} width={500} height={500} className="rounded-lg" unoptimized />
           {porto.github && (
             <a
               href={porto.github}
