@@ -9,19 +9,17 @@ type Params = {
 };
 
 export default function ProjectDetail({ params }: { params: Promise<Params> }) {
-  const [porto, setPorto] = useState<any>(null); // State for portfolio data
-  const [isVisible, setIsVisible] = useState(false); // State for fade-in effect
+  const [porto, setPorto] = useState<any>(null);
+  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    // Unwrap the params and fetch the portfolio data
     async function fetchData() {
       const unwrappedParams = await params;
       const id = unwrappedParams.id;
       const foundPorto = arrayPorto.find((p) => p.id === parseInt(id));
       setPorto(foundPorto || null);
-      setIsVisible(true); // Trigger fade-in after data is set
+      setIsVisible(true);
     }
-
     fetchData();
   }, [params]);
 
@@ -46,7 +44,7 @@ export default function ProjectDetail({ params }: { params: Promise<Params> }) {
         <h1 className="text-2xl font-bold text-white text-center">{porto.name}</h1>
         <p className="mb-4 text-center">{porto.description}</p>
 
-        <div className="flex justify-center">
+        <div className="flex flex-col items-center gap-6">
           <Image
             alt={porto.name}
             src={porto.image}
@@ -55,6 +53,16 @@ export default function ProjectDetail({ params }: { params: Promise<Params> }) {
             className="rounded-lg"
             unoptimized
           />
+
+          {/* GitHub Button */}
+          <a
+            href={porto.github}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="px-6 py-2 bg-soft-brown text-white rounded-lg shadow-md hover:bg-brown-700 transition"
+          >
+            View on GitHub
+          </a>
         </div>
       </div>
     </div>

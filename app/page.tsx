@@ -5,6 +5,7 @@ import Particles from "../components/particles"; // Importing the fixed Particle
 import Link from "next/link";
 import TypedWrapper from "../components/TypedWrapper";
 import profilePic from "../public/image/fotokecil.jpg";
+import projectPic from "../public/image/projectall.png";
 import { motion } from "motion/react"
 
 export default function Home() {
@@ -53,13 +54,9 @@ export default function Home() {
         <main className="container mx-auto">
           <section className="flex justify-center items-center p-10 h-screen">
             <div
-              className="backdrop-blur-lg shadow-lg rounded-lg overflow-hidden flex flex-row w-full relative  transition-all duration-500 hover:scale-105"
-              style={{ height: "400px", opacity: 0.9 }}
+              className="backdrop-blur-lg shadow-lg rounded-lg overflow-hidden flex flex-row w-full relative  transition-all duration-500 hover:scale-110"
+              style={{ height: "450px", opacity: 0.9 }}
             >
-              {/* Arrow Left */}
-              <button className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white/20 text-white p-2 rounded-full hover:bg-white/50  transition-all duration-300">
-                &#8249;
-              </button>
 
               {/* Image Section */}
               <div className="flex justify-center items-center w-1/4">
@@ -83,12 +80,10 @@ export default function Home() {
                   />
                 </h1>
                 <h2 className="text-6xl font-bold mb-7 text-white text-lg  transition-all duration-500">
-                  A Frontend Developer
+                  A Backend Developer
                 </h2>
                 <p className="mb-8 text-white text-lg  transition-all duration-500">
-                  I craft the digital experiences users see and interact with. From beautiful
-                  layouts to responsive designs, I turn ideas into engaging, user-friendly
-                  interfaces that work seamlessly across all devices.
+                  I build the backbone of digital experiences users rely on. From designing robust databases to developing secure APIs, I ensure applications run smoothly behind the scenes. My focus is on performance, security, so every interaction feels seamless, reliable, and efficient.
                 </p>
 
                 {/* New Sparkle Button */}
@@ -138,10 +133,7 @@ export default function Home() {
                 </div>
               </div>
 
-              {/* Arrow Right */}
-              <button className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white/20 text-white p-2 rounded-full hover:bg-white/50  transition-all duration-300">
-                &#8250;
-              </button>
+
             </div>
           </section>
         
@@ -175,8 +167,8 @@ export default function Home() {
               className="font-semibold text-white mb-4">
                 I grew up with a curious, analytical, and problem-solving spirit
                 in a home where the digital world was always within reach.
-                My fascination with technology started at an early age,
-                experimenting with computers and simple code.Now, I take every opportunity to create engaging digital
+                My fascination with technology started at junior high school,
+                experimenting with computers and simple code. Now, I take every opportunity to create engaging digital
                 experiences.
               </motion.p>
             </motion.div>
@@ -186,8 +178,8 @@ export default function Home() {
             transition={{duration:0.6}}
             className="w-1/4 m-12">
               <Image
-                alt="Bakery shopping application"
-                src="https://i.pinimg.com/564x/56/07/51/56075169f3befff95331d31bce2dd121.jpg"
+                alt="Project"
+                src={projectPic}
                 width={640}
                 height={640}
               />

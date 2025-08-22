@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { FaTiktok, FaTwitter, FaInstagram } from "react-icons/fa";
+import { FaTiktok, FaTwitter, FaInstagram, FaWhatsapp } from "react-icons/fa";
 import logo from "../public/image/FIKARU.png";
 
 interface HeaderProps {
@@ -60,9 +60,8 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
             {[
               { name: "Profile", path: "/"  },
               { name: "Portofolio", path: "/portofolio" },
-              { name: "Blog", path: "/blog" },
-              { name: "Button", path: "/button" },
-              { name: "Alert", path: "/alert" },
+
+              
             ].map((item, idx) => (
               <li key={idx}>
                 <Link href={item.path} className="navbar-link">
@@ -75,20 +74,12 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
           {/* Social Media Icons */}
           <div className="flex items-center gap-4">
             <a
-              href="https://tiktok.com/@mrbeast"
+              href="https://wa.me/62895801006521"
               target="_blank"
               rel="noopener noreferrer"
               className="hover:text-gray-300"
             >
-              <FaTiktok size={20} />
-            </a>
-            <a
-              href="https://twitter.com/@elonmusk"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-gray-300"
-            >
-              <FaTwitter size={20} />
+              <FaWhatsapp size={20} />
             </a>
             <a
               href="https://instagram.com/cristiano"
@@ -98,12 +89,12 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
             >
               <FaInstagram size={20} />
             </a>
-            <Link
-              href="/contact"
-              className="bg-white text-black px-4 py-2 rounded-lg hover:bg-gray-300"
-            >
-              Contact Me
-            </Link>
+            <a
+    href="mailto:dzulfikarky@gmail.com"
+    className="bg-white text-black px-4 py-2 rounded-lg hover:bg-gray-300"
+  >
+    Contact Me
+  </a>
           </div>
         </nav>
       </div>
