@@ -6,7 +6,8 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { arrayPorto } from "../../data/portofolio";
 
-export default function PortofolioPage() {
+// Separate component that uses useSearchParams
+function PortfolioContent() {
   const [isMounted, setIsMounted] = useState(false);
   const [fade, setFade] = useState(false);
   const [dropdownActive, setDropdownActive] = useState(false);
@@ -25,9 +26,9 @@ export default function PortofolioPage() {
     return () => clearTimeout(timeout);
   }, [category]);
 
-  const PortofolioContent = () => (
+  return (
     <main
-      className={`relative w-full h-screen overflow-hidden transition-all duration-700 ease-in
+      className={`relative w-full min-h-screen overflow-hidden transition-all duration-700 ease-in
         ${isMounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
     >
       {/* Background Video */}
@@ -43,7 +44,7 @@ export default function PortofolioPage() {
       {/* Content */}
       <div className="relative z-[50] mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-24">
         <div className="flex items-center justify-between mb-8">
-          <h2 className="text-4xl font-bold tracking-tight text-soft-brown">My Portofolio</h2>
+          <h2 className="text-4xl font-bold tracking-tight text-soft-brown">My Portfolio</h2>
 
           {/* Dropdown */}
           <div
@@ -97,8 +98,8 @@ export default function PortofolioPage() {
                   <Image
                     alt={porto.name}
                     src={porto.image}
-                    width={100}
-                    height={100}
+                    width={300}
+                    height={200}
                     unoptimized
                     className="h-full w-full object-cover object-center lg:h-full lg:w-full"
                   />
@@ -116,11 +117,20 @@ export default function PortofolioPage() {
       </div>
     </main>
   );
+}
 
-  // Suspense wrapper
+// Main page component with Suspense boundary
+export default function PortofolioPage() {
   return (
-    <Suspense fallback={<div className="flex items-center justify-center h-screen">Loading...</div>}>
-      <PortofolioContent />
+    <Suspense fallback={
+      <div className="flex items-center justify-center h-screen bg-gray-900">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-soft-brown mx-auto"></div>
+          <p className="mt-4 text-soft-brown">Loading portfolio...</p>
+        </div>
+      </div>
+    }>
+      <PortfolioContent />
     </Suspense>
   );
 }
