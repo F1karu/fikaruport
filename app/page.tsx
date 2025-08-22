@@ -84,7 +84,7 @@ export default function Home() {
               <motion.h2 initial={{opacity:0, y:-20}} whileInView={{opacity:1, y:0}} transition={{duration:0.5, delay:0.3}} className="text-white text-sm font-semibold uppercase mb-2">A Bit of My Story</motion.h2>
               <motion.h3 initial={{opacity:0, y:-20}} whileInView={{opacity:1, y:0}} transition={{duration:0.5, delay:0.5}} className="text-3xl font-bold text-white mb-4">How it all began</motion.h3>
               <motion.p initial={{opacity:0}} whileInView={{opacity:1}} transition={{duration:0.6, delay:0.8}} className="font-semibold text-white mb-4">
-                I grew up with a curious...
+                I grew up with a curious..
               </motion.p>
             </motion.div>
             <motion.div initial={{opacity:0, scale:0.9}} whileInView={{opacity:1, scale:1}} transition={{duration:0.6}} className="w-1/4 m-12">
