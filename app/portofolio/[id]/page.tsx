@@ -4,7 +4,7 @@ import { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import { arrayPorto } from "../../data/portofolio";
+import { arrayPorto } from "../../../data/portofolio";
 
 export default function PortofolioPage() {
   const [fade, setFade] = useState(false);
