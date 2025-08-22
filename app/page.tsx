@@ -56,7 +56,7 @@ export default function Home() {
               {/* Content */}
               <div className="w-2/4 p-4 flex flex-col justify-between">
                 <h1 className="text-6xl font-bold text-soft-brown mb-7 transition-all duration-500">
-                  <TypedWrapper strings={["Hi, I'm Fikaru.", "Welcome!", "Let's Collaborate!"]} typeSpeed={70} backSpeed={60} loop />
+                  <TypedWrapper strings={["Hello, I'm Fikaru.", "Welcome!", "Let's Collaborate!"]} typeSpeed={70} backSpeed={60} loop />
                 </h1>
                 <h2 className="text-6xl font-bold mb-7 text-white text-lg transition-all duration-500">A Backend Developer</h2>
                 <p className="mb-8 text-white text-lg transition-all duration-500">
